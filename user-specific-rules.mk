@@ -9,9 +9,6 @@
 #
 # ========================================================================
 
-# only do this on first pass
-ifeq ($(MAKECMDGOALS),)
-
 # make a list of words
 USER_MAKEFILE := Makefile
 
@@ -51,6 +48,5 @@ else
 .user-build-post:
 endif
 
-endif
 
 
