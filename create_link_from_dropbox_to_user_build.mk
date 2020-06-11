@@ -18,16 +18,16 @@
 #
 define create_link_from_dropbox_to_user_build
 	@# Check the dropbox and build folders exist
-	(test -d "$(1)" || (echo "ERROR: DROPBOX folder \"$(1)\" MUST exist" && false))
-	(test -d "$(2)" || (echo "ERROR: BUILDDIR folder \"$(2)\" MUST exist" && false))
+	@(test -d "$(1)" || (echo "ERROR: DROPBOX folder \"$(1)\" MUST exist" && false))
+	@(test -d "$(2)" || (echo "ERROR: BUILDDIR folder \"$(2)\" MUST exist" && false))
 	@# if target exists but is not a symbolic link, remove it
-	(test -e "$(3)" && test ! -L "$(3)" && rm -rf "$(3)" && echo Deleted \"$(3)\" as not a link) || true
+	@(test -e "$(3)" && test ! -L "$(3)" && rm -rf "$(3)" && echo Deleted \"$(3)\" as not a link) || true
 	@# if target is a link, remove it if it goes elsewhere
-	(readlink -n "$(3)" | { read link; test "$$link" = "$(subst $(1),$(2),$(3))" || (rm "$(3)" && echo Deleted \"$(3)\" as target was elsewhere); }) || true
+	@(readlink -n "$(3)" | { read link; test "$$link" = "$(subst $(1),$(2),$(3))" || (rm "$(3)" && echo Deleted \"$(3)\" as target was elsewhere); }) || true
 	@# if target does not exist, create link
-	(test ! -d "$(3)" && mkdir -p "$(subst $(1),$(2),$(3))") || true
+	@(test ! -d "$(3)" && mkdir -p "$(subst $(1),$(2),$(3))") || true
 	@# if link to target does not exist, create
-	(test ! -L "$(3)" && ln -s "$(subst $(1),$(2),$(3)" "$(3)")) || true
-	echo \"$(3)\" links to \"$(subst $(1),$(2),$(3))\"
+	@(test ! -L "$(3)" && ln -s "$(subst $(1),$(2),$(3)" "$(3)")) || true
+	@echo \"$(3)\" links to \"$(subst $(1),$(2),$(3))\"
 endef
 
