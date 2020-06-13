@@ -27,7 +27,7 @@ define create_link_from_dropbox_to_user_build
 	@# if target does not exist, create link
 	@(test ! -d "$(3)" && mkdir -p "$(subst $(1),$(2),$(3))") || true
 	@# if link to target does not exist, create
-	@(test ! -L "$(3)" && ln -s "$(subst $(1),$(2),$(3)" "$(3)")) || true
+	@(test ! -L "$(3)" && ln -s "$(3)" "$(subst $(1),$(2),$(3))") || true
 	@echo \"$(3)\" links to \"$(subst $(1),$(2),$(3))\"
 endef
 
